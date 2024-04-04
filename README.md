@@ -5,4 +5,8 @@ My personal repository for scripts
 
 ## Bash
 
+## Batch
+
+## Lua
+
 ## Python
