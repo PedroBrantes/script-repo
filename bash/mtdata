@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Função para exibir a mensagem de ajuda
+exibir_ajuda() {
+    echo "Este script exibe os metadados de um arquivo específico."
+    echo "Uso: $0 <nome_do_arquivo>"
+    echo "Exemplo: $0 arquivo.txt"
+}
+
+# Verificar se foi fornecido um argumento (nome do arquivo)
+if [ $# -eq 0 ]; then
+    exibir_ajuda
+    exit 1
+fi
+
+# Verificar se o argumento é o comando de ajuda
+if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+    exibir_ajuda
+    exit 0
+fi
+
+# Verificar se o arquivo existe
+if [ ! -e "$1" ]; then
+    echo "Erro: O arquivo '$1' não existe."
+    exit 1
+fi
+
+# Exibir os metadados do arquivo usando diferentes comandos
+echo "### Metadados do arquivo: $1 ###"
+echo "Comando 'stat':"
+stat "$1"
+echo
+echo "Comando 'ls -l':"
+ls -l "$1"
+echo
+echo "Comando 'file':"
+file "$1"
+echo
+echo "Comando 'lsattr' (se disponível):"
+lsattr "$1" 2>/dev/null || echo "O comando 'lsattr' não está disponível."
+echo
+echo "Comando 'getfattr' (se disponível):"
+getfattr -d "$1" 2>/dev/null || echo "O comando 'getfattr' não está disponível."

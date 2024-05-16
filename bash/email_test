@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+email_REGEX="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+email_to_check=${1}
+
+if [ -z "${email_to_check}" ]; then
+    echo "Insert an email address!"
+    exit 2
+else
+    if [[ "${email_to_check}" =~ ${email_REGEX} ]]; then
+        echo "Address '${email_to_check}' is valid!"
+    else
+        echo "Address '${email_to_check}' is not valid!"
+        exit 1
+    fi
+fi
+
+exit 0
